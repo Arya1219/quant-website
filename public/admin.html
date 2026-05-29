@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quant Game — Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen" class="login-screen">
+  <h1>🔐 Admin Panel</h1>
+  <input type="password" id="password-input" placeholder="Enter password"
+    style="width:100%;max-width:320px;background:#1a1a1a;border:1px solid #444;
+    color:#fff;padding:16px;border-radius:10px;font-size:18px;margin-bottom:16px;">
+  <button class="btn-submit" onclick="adminLogin()"
+    style="max-width:320px;width:100%;">Login</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-screen" style="display:none;">
+  <div class="container" style="max-width:600px;">
+    <h1 style="margin-bottom:20px;color:#00ff88;">⚡ Admin Panel</h1>
+
+    <!-- Current Status -->
+    <div class="admin-panel">
+      <h2>Game Status</h2>
+      <div id="status-display" style="color:#aaa;">Round: 0 | Price: ₹1000 | Timer: Inactive</div>
+    </div>
+
+    <!-- Start Round -->
+    <div class="admin-panel">
+      <h2>Start New Round</h2>
+      <input type="number" id="round-number" placeholder="Round number (1-15)">
+      <input type="text" id="image-url" placeholder="Image URL (upload to imgbb.com first)">
+      <input type="number" id="new-price" placeholder="Asset price for this round">
+      <select id="correct-direction">
+        <option value="">Correct direction (for reveal)</option>
+        <option value="BUY">BUY</option>
+        <option value="SELL">SELL</option>
+        <option value="HOLD">HOLD</option>
+      </select>
+      <button class="btn-admin" onclick="startRound()">🚀 Drop Bulletin & Start Timer</button>
+    </div>
+
+    <!-- End Round -->
+    <div class="admin-panel">
+      <h2>End Round</h2>
+      <input type="number" id="end-price" placeholder="New price after round">
+      <button class="btn-admin btn-danger" onclick="endRound()">🔴 End Round & Calculate PnL</button>
+      <div id="correct-answer-display" style="margin-top:10px;color:#00ff88;font-size:18px;font-weight:700;"></div>
+    </div>
+
+    <!-- Live Submissions -->
+    <div class="admin-panel">
+      <h2>Live Submissions</h2>
+      <div id="submissions-display" style="color:#aaa;">No submissions yet</div>
+    </div>
+
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
