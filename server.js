@@ -76,6 +76,14 @@ app.post('/api/participant/register', async (req, res) => {
   const { name } = req.body;
   const id = 'P' + Date.now();
 
+  if (!process.env.SHEET_ID) {
+    return res.json({ success: false, message: 'SHEET_ID missing' });
+  }
+
+  if (!process.env.GOOGLE_CREDENTIALS) {
+    return res.json({ success: false, message: 'GOOGLE_CREDENTIALS missing' });
+  }
+
   try {
     const sheets = google.sheets({ version: 'v4', auth: await auth.getClient() });
     await sheets.spreadsheets.values.append({
@@ -86,6 +94,12 @@ app.post('/api/participant/register', async (req, res) => {
         values: [[id, name, 10000, 'FLAT', 0, 0, 0, 0, 'none']]
       }
     });
+    res.json({ success: true, participantId: id, name, cashBalance: 10000 });
+  } catch (e) {
+    console.error('Register error:', e.message);
+    res.json({ success: false, message: e.message });
+  }
+});
     res.json({ success: true, participantId: id, name, cashBalance: 10000 });
   } catch (e) {
     console.error('Register error:', e.message);
