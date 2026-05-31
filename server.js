@@ -11,7 +11,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Google Sheets auth
 const auth = new google.auth.GoogleAuth({
-  keyFile: 'credentials.json',
+  credentials: process.env.GOOGLE_CREDENTIALS
+    ? JSON.parse(process.env.GOOGLE_CREDENTIALS)
+    : undefined,
+  keyFile: process.env.GOOGLE_CREDENTIALS ? undefined : 'credentials.json',
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
